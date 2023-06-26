@@ -1,8 +1,6 @@
 package src.view;
 
-import src.view.button.BackButton;
-import src.view.button.ClearButton;
-import src.view.button.NumberButton;
+import src.view.button.*;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -22,7 +20,7 @@ public class Keypad extends JPanel
         JPanel numpadPanel = new JPanel(new GridLayout(4, 3));
         for (int num = 1; num <= 9; num++)
             numpadPanel.add(new NumberButton(num));
-        numpadPanel.add(new JButton("."));
+        numpadPanel.add(new DecimalButton());
         numpadPanel.add(new NumberButton(0));
         numpadPanel.add(new JButton("="));
 

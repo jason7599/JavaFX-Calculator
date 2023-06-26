@@ -9,6 +9,7 @@ public class Token
 
     public String getStr() { return str; }
     public Type getType() { return type; }
+    public void setType(Type type) { this.type = type; }
 
     public Token(int number)
     {
@@ -21,12 +22,17 @@ public class Token
         this(0);
     }
 
-    public void appendChar(char c)
+    public boolean isDefault()
+    {
+        return type == Type.INTEGER && str.equals("0");
+    }
+
+    public void push(char c)
     {
         str += c;
     }
 
-    public char removeChar()
+    public char pop()
     {
         int len = str.length();
         char ret = str.charAt(len - 1);
@@ -34,13 +40,9 @@ public class Token
         return ret;
     }
 
-    public boolean isZero()
-    {
-        return type == Type.INTEGER && str.equals("0");
-    }
-
     public int length()
     {
         return str.length();
     }
+
 }

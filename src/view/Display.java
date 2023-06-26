@@ -30,4 +30,9 @@ public class Display extends JPanel
         int t = textArea.getText().length();
         textArea.replaceRange(null, t - 1, t);
     }
+
+    public void clear()
+    {
+        setText("0");
+    }
 }

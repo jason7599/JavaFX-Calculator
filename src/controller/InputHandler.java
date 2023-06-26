@@ -6,16 +6,13 @@ import java.util.ArrayList;
 
 public class InputHandler 
 {
+    private InputHandler() {}
+
     private static ArrayList<Token> tokens = new ArrayList<>();
 
-    private static Token lastToken()
+    public static void appendDigit(char digit)
     {
-        return tokens.get(tokens.size() - 1);
-    }
-    
-    public static void appendDigit(char number)
-    {
-        Token last = lastToken();
+        Token last = tokens.get(tokens.size() - 1);
 
         if (last.getType() == Token.Type.OPERATOR) // TODO create new token
         {
@@ -23,14 +20,25 @@ public class InputHandler
         }
         else // extend token
         {
-            if (last.isZero()) // overwrite zero
+            if (last.isDefault()) // overwrite zero
             {
-                last.removeChar();
+                last.pop();
                 MainView.display.removeChar();
             }
 
-            last.appendChar(number);
-            MainView.display.appendChar(number);
+            last.push(digit);
+            MainView.display.appendChar(digit);
+        }
+    }
+
+    public static void appendDecimalPoint()
+    {
+        Token last = tokens.get(tokens.size() - 1);
+        if (last.getType() == Token.Type.INTEGER) 
+        {
+            last.push('.');
+            last.setType(Token.Type.DECIMAL);
+            MainView.display.appendChar('.');
         }
     }
 
@@ -38,27 +46,32 @@ public class InputHandler
     {
         tokens.clear();
         tokens.add(new Token()); // default token
+        MainView.display.clear();
     }
 
     public static void back()
     {
-        Token last = lastToken();
+        int tokenCount = tokens.size();
+        Token last = tokens.get(tokenCount - 1);
 
-        last.removeChar(); // TODO if . removed change type
+        if (last.pop() == '.') // decimal to int
+        {
+            last.setType(Token.Type.INTEGER);
+        } 
         MainView.display.removeChar();
 
         if (last.length() == 0) // token empty after removing
         {
-            // if this token was the only token,
-            // revert to default zero token
-            if (tokens.size() == 1) 
+            if (tokenCount == 1) 
             {
-                last.appendChar('0');
+                // if this token was the only token,
+                // revert to default zero token
+                last.push('0');
                 MainView.display.appendChar('0');
             }
             else
             {
-                tokens.remove(tokens.size() - 1);
+                tokens.remove(tokenCount - 1);
             }
         }
     }
