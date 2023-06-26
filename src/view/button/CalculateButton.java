@@ -2,16 +2,16 @@ package src.view.button;
 
 import src.controller.InputHandler;
 
-public class DecimalButton extends Button
+public class CalculateButton extends Button
 {
-    public DecimalButton()
+    public CalculateButton()
     {
-        super(".");
+        super("=");
     }
 
     @Override
     protected void invokeInputHandler()
     {
-        InputHandler.appendDecimalPoint();
+        InputHandler.onCalculate();
     }
 }

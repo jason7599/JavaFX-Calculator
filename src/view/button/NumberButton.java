@@ -2,7 +2,7 @@ package src.view.button;
 
 import src.controller.InputHandler;
 
-public class NumberButton extends CButton
+public class NumberButton extends Button
 {
     private char number;
 

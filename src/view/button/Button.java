@@ -4,11 +4,11 @@ import javax.swing.JButton;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public abstract class CButton extends JButton
+public abstract class Button extends JButton
 {
     protected abstract void invokeInputHandler();
 
-    public CButton(String text)
+    public Button(String text)
     {
         super(text);
         setFocusable(false); // prevents text highlighting

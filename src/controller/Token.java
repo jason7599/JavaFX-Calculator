@@ -1,7 +1,5 @@
 package src.controller;
 
-import src.model.Operator;
-
 public class Token
 {
     public enum Type { INTEGER, DECIMAL, OPERATOR }

@@ -1,9 +1,9 @@
 package src.view.button;
 
-import src.model.Operator;
 import src.controller.InputHandler;
+import src.controller.Operator;
 
-public class OperatorButton extends CButton
+public class OperatorButton extends Button
 {
     private Operator operator;
 

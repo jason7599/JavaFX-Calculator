@@ -2,7 +2,7 @@ package src.view.button;
 
 import src.controller.InputHandler;
 
-public class BackButton extends CButton
+public class BackButton extends Button
 {
     public BackButton()
     {

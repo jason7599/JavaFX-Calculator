@@ -1,9 +1,8 @@
 package src.view;
 
-import src.model.Operator;
+import src.controller.Operator;
 import src.view.button.*;
 
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -23,7 +22,7 @@ public class Keypad extends JPanel
             numpadPanel.add(new NumberButton(num));
         numpadPanel.add(new DecimalButton());
         numpadPanel.add(new NumberButton(0));
-        numpadPanel.add(new JButton("="));
+        numpadPanel.add(new CalculateButton());
 
         JPanel operatorPanel = new JPanel(new GridLayout(4, 1));
         for (Operator operator : Operator.values())

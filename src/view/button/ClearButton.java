@@ -2,7 +2,7 @@ package src.view.button;
 
 import src.controller.InputHandler;
 
-public class ClearButton extends CButton
+public class ClearButton extends Button
 {
     public ClearButton()
     {

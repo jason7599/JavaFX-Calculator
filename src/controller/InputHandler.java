@@ -1,6 +1,5 @@
 package src.controller;
 
-import src.model.Operator;
 import src.view.MainView;
 
 import java.util.ArrayList;
@@ -15,9 +14,9 @@ public class InputHandler
     {
         Token last = tokens.get(tokens.size() - 1);
 
-        if (last.getType() == Token.Type.OPERATOR) // TODO create new token
+        if (last.getType() == Token.Type.OPERATOR)
         {
-
+            tokens.add(new Token(digit));
         }
         else // extend token
         {
@@ -28,8 +27,9 @@ public class InputHandler
             }
 
             last.push(digit);
-            MainView.display.appendChar(digit);
         }
+
+        MainView.display.appendChar(digit);
     }
 
     public static void appendDecimalPoint()
@@ -77,6 +77,17 @@ public class InputHandler
                 tokens.add(new Token(operator));
                 MainView.display.appendChar(operator.chr);
                 break;
+        }
+    }
+
+    public static void onCalculate()
+    {
+        int tokenCount = tokens.size();
+        Token last = tokens.get(tokenCount - 1);
+        if (last.getType() == Token.Type.OPERATOR) // remove unfinished operator
+        {
+            tokens.remove(tokenCount - 1);
+            MainView.display.removeChar();
         }
     }
 
