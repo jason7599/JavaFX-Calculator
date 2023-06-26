@@ -1,5 +1,6 @@
 package src.view;
 
+import src.model.Operator;
 import src.view.button.*;
 
 import javax.swing.JButton;
@@ -24,14 +25,12 @@ public class Keypad extends JPanel
         numpadPanel.add(new NumberButton(0));
         numpadPanel.add(new JButton("="));
 
-        JPanel opkeyPanel = new JPanel(new GridLayout(4, 1));
-        opkeyPanel.add(new JButton("+"));
-        opkeyPanel.add(new JButton("-"));
-        opkeyPanel.add(new JButton("*"));
-        opkeyPanel.add(new JButton("/"));
+        JPanel operatorPanel = new JPanel(new GridLayout(4, 1));
+        for (Operator operator : Operator.values())
+            operatorPanel.add(new OperatorButton(operator));
 
         inputPanel.add(numpadPanel);
-        inputPanel.add(opkeyPanel);
+        inputPanel.add(operatorPanel);
 
         add(controlPanel);
         add(inputPanel);

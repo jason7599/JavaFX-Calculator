@@ -1,11 +1,16 @@
 package src.model;
 
-public class Operator 
+public enum Operator
 {
-    public enum Type
-    {
-        ADD, SUBTRACT;
+    ADD('+'), SUBTRACT('-'), MULTIPLY('*'), DIVIDE('/');
+    
+    public final char chr;
+    private Operator(char c) { chr = c; }
 
-        
+    @Override
+    public String toString()
+    {
+        return Character.toString(chr);
     }
 }
+

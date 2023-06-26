@@ -1,5 +1,6 @@
 package src.controller;
 
+import src.model.Operator;
 import src.view.MainView;
 
 import java.util.ArrayList;
@@ -39,6 +40,43 @@ public class InputHandler
             last.push('.');
             last.setType(Token.Type.DECIMAL);
             MainView.display.appendChar('.');
+        }
+    }
+
+    public static void appendOperator(Operator operator)
+    {
+        Token last = tokens.get(tokens.size() - 1);
+
+        switch (last.getType())
+        {
+            case OPERATOR: // replace operator
+
+                if (!last.getStr().equals(operator.toString()))
+                {
+                    last.pop();
+                    last.push(operator.chr);
+        
+                    MainView.display.removeChar();
+                    MainView.display.appendChar(operator.chr);
+                }
+
+                break;
+
+            case DECIMAL: // if no decimal, convert back to int
+
+                if (last.lastChar() == '.')
+                {
+                    last.pop();
+                    last.setType(Token.Type.INTEGER);
+                    MainView.display.removeChar();
+                }
+
+                // no break 
+            
+            case INTEGER: // add new token
+                tokens.add(new Token(operator));
+                MainView.display.appendChar(operator.chr);
+                break;
         }
     }
 

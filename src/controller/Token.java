@@ -1,5 +1,7 @@
 package src.controller;
 
+import src.model.Operator;
+
 public class Token
 {
     public enum Type { INTEGER, DECIMAL, OPERATOR }
@@ -11,15 +13,29 @@ public class Token
     public Type getType() { return type; }
     public void setType(Type type) { this.type = type; }
 
-    public Token(int number)
+    public Token() // default zero token
     {
-        str = String.valueOf(number);
-        type = Type.INTEGER;
+        this('0');
     }
 
-    public Token() // default Token; "0"
+    public Token(char digit)
     {
-        this(0);
+        if (digit == '.')
+        {
+            str = "0."; // default decimal token
+            type = Type.DECIMAL;
+        }
+        else
+        {
+            str = Character.toString(digit);
+            type = Type.INTEGER;
+        }
+    }
+
+    public Token(Operator operator)
+    {
+        str = operator.toString();
+        type = Type.OPERATOR;
     }
 
     public boolean isDefault()
@@ -38,6 +54,11 @@ public class Token
         char ret = str.charAt(len - 1);
         str = str.substring(0, len - 1);
         return ret;
+    }
+
+    public char lastChar()
+    {
+        return str.charAt(str.length() - 1);
     }
 
     public int length()
