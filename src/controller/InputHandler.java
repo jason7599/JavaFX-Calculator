@@ -37,9 +37,9 @@ public class InputHandler
         Token last = tokens.get(tokens.size() - 1);
         if (last.getType() == Token.Type.INTEGER) 
         {
-            last.push('.');
+            last.push(Token.DECIMAL_POINT);
             last.setType(Token.Type.DECIMAL);
-            MainView.display.appendChar('.');
+            MainView.display.appendChar(Token.DECIMAL_POINT);
         }
     }
 
@@ -56,15 +56,16 @@ public class InputHandler
                     last.pop();
                     last.push(operator.chr);
         
-                    MainView.display.removeChar();
+                    MainView.display.removeChar(2);
                     MainView.display.appendChar(operator.chr);
+                    MainView.display.appendBlank();
                 }
 
                 break;
 
             case DECIMAL: // if no decimal, convert back to int
 
-                if (last.lastChar() == '.')
+                if (last.lastChar() == Token.DECIMAL_POINT)
                 {
                     last.pop();
                     last.setType(Token.Type.INTEGER);
@@ -75,7 +76,9 @@ public class InputHandler
             
             case INTEGER: // add new token
                 tokens.add(new Token(operator));
+                MainView.display.appendBlank(); // blank before operator
                 MainView.display.appendChar(operator.chr);
+                MainView.display.appendBlank(); // blank after operator
                 break;
         }
     }
@@ -87,7 +90,7 @@ public class InputHandler
         if (last.getType() == Token.Type.OPERATOR) // remove unfinished operator
         {
             tokens.remove(tokenCount - 1);
-            MainView.display.removeChar();
+            MainView.display.removeChar(3);
         }
     }
 
@@ -95,7 +98,7 @@ public class InputHandler
     {
         tokens.clear();
         tokens.add(new Token()); // default token
-        MainView.display.clear();
+        MainView.display.setText(Token.DEFAULT_STR);
     }
 
     public static void back()
@@ -103,25 +106,36 @@ public class InputHandler
         int tokenCount = tokens.size();
         Token last = tokens.get(tokenCount - 1);
 
-        if (last.pop() == '.') // decimal to int
+        switch (last.getType())
         {
-            last.setType(Token.Type.INTEGER);
-        } 
-        MainView.display.removeChar();
+            case INTEGER:
+                last.pop();
+                MainView.display.removeChar();
 
-        if (last.length() == 0) // token empty after removing
-        {
-            if (tokenCount == 1) 
-            {
-                // if this token was the only token,
-                // revert to default zero token
-                last.push('0');
-                MainView.display.appendChar('0');
-            }
-            else
-            {
+                if (last.length() == 0) // token empty after removing
+                {
+                    if (tokenCount == 1) // if this token was the only token, revert to default zero token
+                    {
+                        last.push(Token.DEFAULT_CHR);
+                        MainView.display.appendChar(Token.DEFAULT_CHR);
+                    }
+                    else
+                    {
+                        tokens.remove(tokenCount - 1); // remove this token
+                    }
+                }
+                break;
+            
+            case DECIMAL:
+                MainView.display.removeChar();
+                if (last.pop() == Token.DECIMAL_POINT) // decimal point removed, convert back to int
+                    last.setType(Token.Type.INTEGER);
+                break;
+            
+            case OPERATOR:
+                MainView.display.removeChar(3);
                 tokens.remove(tokenCount - 1);
-            }
+                break;
         }
     }
 }

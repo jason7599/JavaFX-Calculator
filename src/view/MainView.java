@@ -4,14 +4,12 @@ import java.awt.GridLayout;
 import javax.swing.JFrame;
 
 import src.controller.InputHandler;
-// import src.model.Operator;
-// import src.model.Operator;
 
 public class MainView extends JFrame
 {
-    private final String TITLE = "Calculator";
-    private final int WIDTH = 300;
-    private final int HEIGHT = 450;
+    private static final String TITLE = "Calculator";
+    private static final int WIDTH = 300;
+    private static final int HEIGHT = 450;
 
     public static final Display display = new Display();
 
@@ -19,6 +17,7 @@ public class MainView extends JFrame
     {
         setTitle(TITLE);
         setSize(WIDTH, HEIGHT);
+        setResizable(false);
         setLocationRelativeTo(null); // center location
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         
@@ -34,12 +33,6 @@ public class MainView extends JFrame
 
     public static void main(String[] args)
     {
-        // for (int i = 0; i < 4; i++)
-        // {
-        //     System.out.println(Operator.Type.va);
-        // }
-        // System.out.println(Operator.Type.ADD.ordinal());
-
         new MainView();
     }
 }

@@ -2,6 +2,11 @@ package src.controller;
 
 public class Token
 {
+    public final static String DEFAULT_STR = "0";
+    public final static String DEFAULT_DECIMAL = "0.";
+    public final static char DECIMAL_POINT = '.';
+    public final static char DEFAULT_CHR = '0';
+
     public enum Type { INTEGER, DECIMAL, OPERATOR }
 
     private String str;
@@ -13,14 +18,14 @@ public class Token
 
     public Token() // default zero token
     {
-        this('0');
+        this(DEFAULT_CHR);
     }
 
     public Token(char digit)
     {
-        if (digit == '.')
+        if (digit == DECIMAL_POINT)
         {
-            str = "0."; // default decimal token
+            str = DEFAULT_DECIMAL; // default decimal token
             type = Type.DECIMAL;
         }
         else
@@ -38,7 +43,7 @@ public class Token
 
     public boolean isDefault()
     {
-        return type == Type.INTEGER && str.equals("0");
+        return type == Type.INTEGER && str.equals(DEFAULT_STR);
     }
 
     public void push(char c)

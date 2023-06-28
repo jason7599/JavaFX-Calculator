@@ -1,5 +1,8 @@
 package src.view;
 
+import java.awt.Color;
+import java.awt.ComponentOrientation;
+
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
@@ -9,8 +12,12 @@ public class Display extends JPanel
 
     public Display()
     {
-        textArea = new JTextArea("0");
+        setBackground(Color.LIGHT_GRAY);
+
+        textArea = new JTextArea();
         textArea.setEditable(false);
+        textArea.setFont(textArea.getFont().deriveFont(30f));
+        textArea.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 
         add(textArea);
     }
@@ -25,14 +32,19 @@ public class Display extends JPanel
         textArea.append(Character.toString(c));
     }
 
-    public void removeChar()
+    public void appendBlank()
     {
-        int t = textArea.getText().length();
-        textArea.replaceRange(null, t - 1, t);
+        appendChar(' ');
     }
 
-    public void clear()
+    public void removeChar()
     {
-        setText("0");
+        removeChar(1);
+    }
+
+    public void removeChar(int len)
+    {
+        int t = textArea.getText().length();
+        textArea.replaceRange(null, t - len, t);
     }
 }
